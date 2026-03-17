@@ -1,0 +1,188 @@
+/* ======== DASHBOARD / 个人中心 ======== */
+
+/* User info header */
+.user-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.user-header-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(139,92,246,0.2));
+  border: 2px solid rgba(99,102,241,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+.user-header-info h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+.user-header-info p {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.15rem;
+}
+
+/* Stats row */
+.dash-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 640px) {
+  .dash-stats-row { grid-template-columns: 1fr; }
+}
+.dash-stat-card {
+  border-radius: 1rem;
+  background: rgba(2,6,23,0.6);
+  border: 1px solid rgba(99,102,241,0.12);
+  padding: 1.25rem;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.dash-stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #818cf8, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dash-stat-label {
+  font-size: 0.7rem;
+  color: #64748b;
+  letter-spacing: 0.06em;
+  margin-top: 0.25rem;
+}
+
+/* Character cards grid */
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.char-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(2,6,23,0.7);
+  border: 1px solid rgba(99,102,241,0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 400ms;
+  position: relative;
+}
+.char-card:hover {
+  border-color: rgba(99,102,241,0.3);
+  box-shadow: 0 0 30px rgba(99,102,241,0.08);
+  transform: translateY(-2px);
+}
+.char-card-avatar {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.char-card-emoji {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.5rem;
+  background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08));
+}
+.char-card-body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+.char-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 0.15rem;
+}
+.char-card-title {
+  font-size: 0.7rem;
+  color: #818cf8;
+  margin-bottom: 0.75rem;
+}
+.char-card-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.75rem;
+}
+.char-card-traits span {
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  background: rgba(99,102,241,0.08);
+  border: 1px solid rgba(99,102,241,0.15);
+  color: #a5b4fc;
+}
+.char-card-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.65rem;
+  color: #64748b;
+}
+.char-card-stats span strong {
+  color: #a5b4fc;
+  margin-right: 0.2rem;
+}
+.char-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(99,102,241,0.08);
+}
+.char-card-actions button {
+  flex: 1;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-family: 'Noto Sans SC', sans-serif;
+  cursor: pointer;
+  transition: all 200ms;
+  border: 1px solid rgba(99,102,241,0.15);
+  background: rgba(99,102,241,0.05);
+  color: #a5b4fc;
+}
+.char-card-actions button:hover {
+  background: rgba(99,102,241,0.15);
+}
+.char-card-actions button.danger {
+  border-color: rgba(244,63,94,0.2);
+  background: rgba(244,63,94,0.05);
+  color: #fda4af;
+}
+.char-card-actions button.danger:hover {
+  background: rgba(244,63,94,0.15);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+.empty-state svg {
+  width: 64px;
+  height: 64px;
+  color: rgba(99,102,241,0.25);
+  margin: 0 auto 1rem;
+}
+.empty-state p {
+  color: #475569;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}

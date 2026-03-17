@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello - 个人中心</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="character.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body class="scanlines">
+
+  <canvas id="starfield"></canvas>
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+  <div class="nebula nebula-4"></div>
+  <div class="wormhole">
+    <div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div>
+    <div class="wormhole-core"></div>
+  </div>
+  <div class="energy-ripple"><span></span><span></span><span></span><span></span></div>
+  <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+
+  <!-- Nav -->
+  <nav id="navbar" class="nav-glass fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <span class="font-cyber text-sm font-black text-white tracking-tight">Hi</span>
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 shadow-lg shadow-cyan-400/50"></span>
+            </span>
+          </div>
+          <span class="font-cyber text-lg font-bold bg-gradient-to-r from-indigo-300 to-violet-400 bg-clip-text text-transparent tracking-widest">Hello</span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html"      class="nav-link font-cyber text-xs tracking-wider">首页</a>
+          <a href="../features.html"   class="nav-link font-cyber text-xs tracking-wider">功能</a>
+          <a href="../tech.html"       class="nav-link font-cyber text-xs tracking-wider">技术</a>
+          <a href="../about.html"      class="nav-link font-cyber text-xs tracking-wider">关于</a>
+          <a href="character.html"  class="nav-link font-cyber text-xs tracking-wider">角色</a>
+        </div>
+        <div class="hidden md:flex items-center gap-4">
+          <a href="../console.html" class="btn-neon text-xs font-cyber tracking-wider">启动控制台</a>
+          <a href="dashboard.html" class="user-avatar-btn" title="个人中心" style="color:#818cf8;border-color:rgba(99,102,241,0.4);">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </a>
+        </div>
+        <button id="menuBtn" class="md:hidden relative w-9 h-9 flex flex-col items-center justify-center gap-1.5 group" aria-label="Menu">
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 origin-center group-[.open]:rotate-45 group-[.open]:translate-y-[4px]"></span>
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 group-[.open]:opacity-0"></span>
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 origin-center group-[.open]:-rotate-45 group-[.open]:-translate-y-[4px]"></span>
+        </button>
+      </div>
+      <div id="mobileMenu" class="mobile-menu md:hidden">
+        <div class="py-3 space-y-1 border-t border-indigo-500/10">
+          <a href="index.html"      class="block nav-link font-cyber text-xs tracking-wider">首页</a>
+          <a href="../features.html"   class="block nav-link font-cyber text-xs tracking-wider">功能</a>
+          <a href="../tech.html"       class="block nav-link font-cyber text-xs tracking-wider">技术</a>
+          <a href="../about.html"      class="block nav-link font-cyber text-xs tracking-wider">关于</a>
+          <a href="character.html"  class="block nav-link font-cyber text-xs tracking-wider">角色</a>
+          <div class="pt-3 flex gap-2">
+            <a href="../console.html" class="btn-neon flex-1 text-xs font-cyber tracking-wider text-center">启动控制台</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="relative z-10 pt-24 pb-16 px-4">
+    <div class="max-w-5xl mx-auto page-enter">
+
+      <!-- User header -->
+      <div class="user-header">
+        <div class="user-header-avatar">👨‍🚀</div>
+        <div class="user-header-info">
+          <h2 id="userName" class="font-cyber tracking-wider">旅者</h2>
+          <p id="userEmail" class="font-cyber tracking-wider"></p>
+        </div>
+        <div class="ml-auto flex gap-3">
+          <a href="character.html" class="btn-neon font-cyber text-xs tracking-wider px-4 py-2">创建角色</a>
+          <button id="logoutBtn" class="btn-neon font-cyber text-xs tracking-wider px-4 py-2" style="border-color:rgba(244,63,94,0.3);color:#fda4af;">登出</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="dash-stats-row">
+        <div class="dash-stat-card">
+          <div id="charCount" class="dash-stat-num font-cyber">0</div>
+          <div class="dash-stat-label font-cyber tracking-wider">已创建角色</div>
+        </div>
+        <div class="dash-stat-card">
+          <div id="traitCount" class="dash-stat-num font-cyber" style="background:linear-gradient(135deg,#22d3ee,#06b6d4);-webkit-background-clip:text;background-clip:text;">0</div>
+          <div class="dash-stat-label font-cyber tracking-wider">特质总数</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-num font-cyber" style="background:linear-gradient(135deg,#6ee7b7,#10b981);-webkit-background-clip:text;background-clip:text;">∞</div>
+          <div class="dash-stat-label font-cyber tracking-wider">探索星系</div>
+        </div>
+      </div>
+
+      <!-- Section title -->
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-cyber text-xs tracking-wider text-slate-400">我的角色</h2>
+      </div>
+
+      <!-- Character grid -->
+      <div id="charGrid" class="char-grid"></div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-slate-800/60 py-8 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center">
+          <span class="font-cyber text-[8px] font-black text-white">Hi</span>
+        </div>
+        <span class="font-cyber tracking-wider">Hello &copy; 2026</span>
+      </div>
+      <p class="font-cyber tracking-wider text-slate-600">铸造于宇宙之心</p>
+    </div>
+  </footer>
+
+  <script src="../auth-api.js"></script>
+  <script src="../scripts.js"></script>
+  <script src="auth.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

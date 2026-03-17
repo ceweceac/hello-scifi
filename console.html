@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello - 星舰控制台</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="scanlines">
+
+  <canvas id="starfield"></canvas>
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+  <div class="nebula nebula-4"></div>
+  <div class="wormhole">
+    <div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div>
+    <div class="wormhole-core"></div>
+  </div>
+  <div class="energy-ripple"><span></span><span></span><span></span><span></span></div>
+  <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+
+  <!-- Nav -->
+  <nav id="navbar" class="nav-glass fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <span class="font-cyber text-sm font-black text-white tracking-tight">Hi</span>
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 shadow-lg shadow-cyan-400/50"></span>
+            </span>
+          </div>
+          <span class="font-cyber text-lg font-bold bg-gradient-to-r from-indigo-300 to-violet-400 bg-clip-text text-transparent tracking-widest">Hello</span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html"     class="nav-link font-cyber text-xs tracking-wider">首页</a>
+          <a href="features.html"  class="nav-link font-cyber text-xs tracking-wider">功能</a>
+          <a href="tech.html"      class="nav-link font-cyber text-xs tracking-wider">技术</a>
+          <a href="about.html"     class="nav-link font-cyber text-xs tracking-wider">关于</a>
+          <a href="ai-character-card/character.html" class="nav-link font-cyber text-xs tracking-wider">角色</a>
+        </div>
+        <div class="hidden md:flex items-center gap-4">
+          <a href="console.html" class="btn-neon text-xs font-cyber tracking-wider active">控制台</a>
+          <button class="user-avatar-btn" title="登录 / 注册">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </button>
+        </div>
+        <button id="menuBtn" class="md:hidden relative w-9 h-9 flex flex-col items-center justify-center gap-1.5 group" aria-label="Menu">
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 origin-center group-[.open]:rotate-45 group-[.open]:translate-y-[4px]"></span>
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 group-[.open]:opacity-0"></span>
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 origin-center group-[.open]:-rotate-45 group-[.open]:-translate-y-[4px]"></span>
+        </button>
+      </div>
+      <div id="mobileMenu" class="mobile-menu md:hidden">
+        <div class="py-3 space-y-1 border-t border-indigo-500/10">
+          <a href="index.html"     class="block nav-link font-cyber text-xs tracking-wider">首页</a>
+          <a href="features.html"  class="block nav-link font-cyber text-xs tracking-wider">功能</a>
+          <a href="tech.html"      class="block nav-link font-cyber text-xs tracking-wider">技术</a>
+          <a href="about.html"     class="block nav-link font-cyber text-xs tracking-wider">关于</a>
+          <a href="ai-character-card/character.html" class="block nav-link font-cyber text-xs tracking-wider">角色</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Console Dashboard -->
+  <main class="relative z-10 pt-24 pb-16 px-4">
+    <div class="max-w-7xl mx-auto page-enter">
+
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
+        <div>
+          <p class="font-cyber text-xs tracking-[0.25em] text-indigo-400/60 mb-2">// 指挥中心</p>
+          <h1 class="font-cyber text-2xl sm:text-3xl font-bold section-title">星舰控制台</h1>
+        </div>
+        <div class="flex items-center gap-4 mt-4 sm:mt-0">
+          <div class="flex items-center gap-2 text-xs font-cyber tracking-wider text-slate-400">
+            <span class="status-dot online"></span>
+            <span>系统正常</span>
+          </div>
+          <div id="live-clock" class="text-xs font-cyber tracking-wider text-slate-500"></div>
+        </div>
+      </div>
+
+      <!-- Top Stats Row -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="dash-panel">
+          <p class="text-xs font-cyber tracking-wider text-slate-500 mb-1">曲速</p>
+          <p class="font-cyber text-2xl font-black bg-gradient-to-r from-indigo-300 to-violet-400 bg-clip-text text-transparent" data-count="9.7">0</p>
+          <p class="text-xs text-emerald-400 mt-1">&#9650; 2.3% 最优</p>
+        </div>
+        <div class="dash-panel">
+          <p class="text-xs font-cyber tracking-wider text-slate-500 mb-1">护盾能量</p>
+          <p class="font-cyber text-2xl font-black bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent" data-count="97.4">0</p>
+          <p class="text-xs text-emerald-400 mt-1">&#9650; 稳定</p>
+        </div>
+        <div class="dash-panel">
+          <p class="text-xs font-cyber tracking-wider text-slate-500 mb-1">活跃船员</p>
+          <p class="font-cyber text-2xl font-black bg-gradient-to-r from-violet-300 to-purple-400 bg-clip-text text-transparent" data-count="2048">0</p>
+          <p class="text-xs text-slate-500 mt-1">遍布7个星区</p>
+        </div>
+        <div class="dash-panel">
+          <p class="text-xs font-cyber tracking-wider text-slate-500 mb-1">量子比特</p>
+          <p class="font-cyber text-2xl font-black bg-gradient-to-r from-emerald-300 to-teal-400 bg-clip-text text-transparent" data-count="512">0</p>
+          <p class="text-xs text-cyan-400 mt-1">加密: AES-Q</p>
+        </div>
+      </div>
+
+      <!-- Main Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
+        <!-- Energy Output Chart -->
+        <div class="dash-panel lg:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-cyber text-xs tracking-wider text-slate-400">能量输出 — 24小时</h3>
+            <div class="flex items-center gap-3 text-xs font-cyber tracking-wider">
+              <span class="flex items-center gap-1 text-indigo-400"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>主引擎</span>
+              <span class="flex items-center gap-1 text-cyan-400"><span class="w-2 h-2 rounded-full bg-cyan-500"></span>辅助</span>
+            </div>
+          </div>
+          <div class="flex items-end gap-1.5 h-40">
+            <div class="chart-bar flex-1" data-height="65%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="45%"></div>
+            <div class="chart-bar flex-1" data-height="80%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="55%"></div>
+            <div class="chart-bar flex-1" data-height="72%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="48%"></div>
+            <div class="chart-bar flex-1" data-height="90%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="62%"></div>
+            <div class="chart-bar flex-1" data-height="85%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="70%"></div>
+            <div class="chart-bar flex-1" data-height="78%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="52%"></div>
+            <div class="chart-bar flex-1" data-height="95%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="68%"></div>
+            <div class="chart-bar flex-1" data-height="88%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="58%"></div>
+            <div class="chart-bar flex-1" data-height="76%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="50%"></div>
+            <div class="chart-bar flex-1" data-height="82%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="60%"></div>
+            <div class="chart-bar flex-1" data-height="70%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="55%"></div>
+            <div class="chart-bar flex-1" data-height="92%"></div>
+            <div class="chart-bar-cyan chart-bar flex-1" data-height="74%"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-xs font-cyber tracking-wider text-slate-600">
+            <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>现在</span>
+          </div>
+        </div>
+
+        <!-- Radar / Status Panel -->
+        <div class="dash-panel">
+          <h3 class="font-cyber text-xs tracking-wider text-slate-400 mb-4">星区扫描</h3>
+          <div class="relative w-full aspect-square max-w-[220px] mx-auto mb-4">
+            <!-- Radar background -->
+            <div class="absolute inset-0 rounded-full border border-indigo-500/15"></div>
+            <div class="absolute inset-[15%] rounded-full border border-indigo-500/10"></div>
+            <div class="absolute inset-[30%] rounded-full border border-indigo-500/08"></div>
+            <div class="absolute inset-[45%] rounded-full border border-indigo-500/05"></div>
+            <!-- Crosshair -->
+            <div class="absolute top-0 bottom-0 left-1/2 w-px bg-indigo-500/10"></div>
+            <div class="absolute left-0 right-0 top-1/2 h-px bg-indigo-500/10"></div>
+            <!-- Sweep -->
+            <div class="absolute inset-0 rounded-full overflow-hidden">
+              <div class="absolute top-1/2 left-1/2 w-1/2 h-1 origin-left" style="animation: radar-sweep 3s linear infinite;">
+                <div class="w-full h-24 -mt-12 bg-gradient-to-r from-indigo-500/30 to-transparent" style="transform: rotate(-15deg); transform-origin: left center;"></div>
+              </div>
+            </div>
+            <!-- Blips -->
+            <div class="absolute w-2 h-2 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" style="top:25%; left:60%; animation: core-pulse 2s infinite;"></div>
+            <div class="absolute w-1.5 h-1.5 rounded-full bg-indigo-400 shadow-lg shadow-indigo-400/50" style="top:65%; left:30%; animation: core-pulse 2.5s infinite 0.5s;"></div>
+            <div class="absolute w-1 h-1 rounded-full bg-violet-400 shadow-lg shadow-violet-400/50" style="top:40%; left:75%; animation: core-pulse 3s infinite 1s;"></div>
+            <div class="absolute w-1.5 h-1.5 rounded-full bg-amber-400 shadow-lg shadow-amber-400/50" style="top:70%; left:65%; animation: core-pulse 2s infinite 1.5s;"></div>
+          </div>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2 text-slate-400"><span class="status-dot online"></span>第七星区</span>
+              <span class="font-cyber text-cyan-400">安全</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2 text-slate-400"><span class="status-dot online"></span>第三星区</span>
+              <span class="font-cyber text-cyan-400">安全</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2 text-slate-400"><span class="status-dot warning"></span>第九星区</span>
+              <span class="font-cyber text-amber-400">注意</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- System Status -->
+        <div class="dash-panel">
+          <h3 class="font-cyber text-xs tracking-wider text-slate-400 mb-4">子系统</h3>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">曲速核心</span>
+                <span class="font-cyber text-indigo-400">97%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500" style="width:97%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">生命维持</span>
+                <span class="font-cyber text-cyan-400">100%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-500" style="width:100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">武器阵列</span>
+                <span class="font-cyber text-violet-400">84%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-violet-500 to-purple-500" style="width:84%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">导航系统</span>
+                <span class="font-cyber text-emerald-400">99%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500" style="width:99%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">通信中继</span>
+                <span class="font-cyber text-amber-400">76%</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500" style="width:76%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Log -->
+        <div class="dash-panel lg:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-cyber text-xs tracking-wider text-slate-400">实时系统日志</h3>
+            <span class="flex items-center gap-1 text-xs font-cyber text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>传输中</span>
+          </div>
+          <div id="log-stream" class="space-y-1 max-h-52 overflow-y-auto" style="scrollbar-width: thin;"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-slate-800/60 py-8 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center">
+          <span class="font-cyber text-[8px] font-black text-white">Hi</span>
+        </div>
+        <span class="font-cyber tracking-wider">Hello &copy; 2026</span>
+      </div>
+      <p class="font-cyber tracking-wider text-slate-600">铸造于宇宙之心</p>
+    </div>
+  </footer>
+
+  <script src="auth-api.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>

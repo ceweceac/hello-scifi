@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello - AI 角色创建</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="character.css" />
+</head>
+<body class="scanlines">
+
+  <canvas id="starfield"></canvas>
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+  <div class="nebula nebula-4"></div>
+  <div class="wormhole">
+    <div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div>
+    <div class="wormhole-core"></div>
+  </div>
+  <div class="energy-ripple"><span></span><span></span><span></span><span></span></div>
+  <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+
+  <!-- Nav -->
+  <nav id="navbar" class="nav-glass fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="../index.html" class="flex items-center gap-3 group">
+          <div class="relative w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <span class="font-cyber text-sm font-black text-white tracking-tight">Hi</span>
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 shadow-lg shadow-cyan-400/50"></span>
+            </span>
+          </div>
+          <span class="font-cyber text-lg font-bold bg-gradient-to-r from-indigo-300 to-violet-400 bg-clip-text text-transparent tracking-widest">Hello</span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="../index.html"      class="nav-link font-cyber text-xs tracking-wider">首页</a>
+          <a href="../features.html"   class="nav-link font-cyber text-xs tracking-wider">功能</a>
+          <a href="../tech.html"       class="nav-link font-cyber text-xs tracking-wider">技术</a>
+          <a href="../about.html"      class="nav-link font-cyber text-xs tracking-wider">关于</a>
+          <a href="character.html"  class="nav-link active font-cyber text-xs tracking-wider">角色</a>
+        </div>
+        <div class="hidden md:flex items-center gap-4">
+          <a href="../console.html" class="btn-neon text-xs font-cyber tracking-wider">启动控制台</a>
+          <button class="user-avatar-btn" title="登录 / 注册">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </button>
+        </div>
+        <button id="menuBtn" class="md:hidden relative w-9 h-9 flex flex-col items-center justify-center gap-1.5 group" aria-label="Menu">
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 origin-center group-[.open]:rotate-45 group-[.open]:translate-y-[4px]"></span>
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 group-[.open]:opacity-0"></span>
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 origin-center group-[.open]:-rotate-45 group-[.open]:-translate-y-[4px]"></span>
+        </button>
+      </div>
+      <div id="mobileMenu" class="mobile-menu md:hidden">
+        <div class="py-3 space-y-1 border-t border-indigo-500/10">
+          <a href="../index.html"      class="block nav-link font-cyber text-xs tracking-wider">首页</a>
+          <a href="../features.html"   class="block nav-link font-cyber text-xs tracking-wider">功能</a>
+          <a href="../tech.html"       class="block nav-link font-cyber text-xs tracking-wider">技术</a>
+          <a href="../about.html"      class="block nav-link font-cyber text-xs tracking-wider">关于</a>
+          <a href="character.html"  class="block nav-link active font-cyber text-xs tracking-wider">角色</a>
+          <div class="pt-3 flex gap-2">
+            <a href="../console.html" class="btn-neon flex-1 text-xs font-cyber tracking-wider text-center">启动控制台</a>
+            <button class="user-avatar-btn" style="width:42px;height:42px;" title="登录 / 注册">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="relative z-10 pt-24 pb-16 px-4">
+    <div class="max-w-5xl mx-auto page-enter">
+
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <p class="font-cyber text-xs tracking-[0.25em] text-indigo-400/60 mb-3">// AI 角色工坊</p>
+        <h1 class="font-cyber text-3xl sm:text-4xl font-bold section-title mb-4">创建你的星际角色</h1>
+        <p class="text-slate-400 max-w-xl mx-auto">定义外貌、性格与能力，生成专属的星际角色卡片</p>
+      </div>
+
+      <!-- Step bar -->
+      <div class="steps-bar">
+        <div class="step-item active">
+          <div class="step-dot">1</div>
+          <span class="step-label">基本信息</span>
+        </div>
+        <div class="step-item">
+          <div class="step-dot">2</div>
+          <span class="step-label">特质选择</span>
+        </div>
+        <div class="step-item">
+          <div class="step-dot">3</div>
+          <span class="step-label">背景故事</span>
+        </div>
+      </div>
+
+      <!-- Creator area -->
+      <div id="creatorArea">
+
+        <!-- STEP 1 — 基本信息 -->
+        <div class="step-panel active">
+          <div class="creator-grid">
+            <!-- 左侧：头像 -->
+            <div>
+              <div id="avatarPreview" class="avatar-preview mb-4">
+                <div class="upload-hint">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  <p class="text-sm text-slate-400">点击上传自定义头像</p>
+                  <p class="text-xs text-slate-500 mt-1">或在下方选择预设</p>
+                </div>
+              </div>
+              <input type="file" id="avatarFile" accept="image/*" class="hidden" />
+              <label class="form-label">预设头像</label>
+              <div id="avatarGrid" class="avatar-grid"></div>
+            </div>
+
+            <!-- 右侧：表单 -->
+            <div>
+              <div class="form-group">
+                <label class="form-label">角色名称 *</label>
+                <input type="text" id="charName" class="form-input" placeholder="输入角色名称" maxlength="20" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">角色头衔</label>
+                <input type="text" id="charTitle" class="form-input" placeholder="例：星际流浪者、量子先知" maxlength="30" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">种族 / 物种</label>
+                <select id="charSpecies" class="form-input">
+                  <option value="人类">人类</option>
+                  <option value="仿生人">仿生人</option>
+                  <option value="星灵族">星灵族</option>
+                  <option value="虚空行者">虚空行者</option>
+                  <option value="龙裔">龙裔</option>
+                  <option value="机械生命">机械生命</option>
+                  <option value="未知">未知物种</option>
+                </select>
+              </div>
+
+              <!-- 卡片预览 -->
+              <div class="card-preview mt-6">
+                <div class="card-preview-header" style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(139,92,246,0.15));display:flex;align-items:center;justify-content:center;font-size:3rem;">
+                  🧑‍🚀
+                </div>
+                <div class="card-preview-body">
+                  <p id="previewName" class="text-sm font-bold text-slate-200">未命名角色</p>
+                  <p id="previewTitle" class="text-xs text-indigo-400/70 mt-0.5">星际旅者</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 — 特质选择 -->
+        <div class="step-panel">
+          <div class="dash-panel">
+            <h3 class="font-cyber text-xs tracking-wider text-slate-400 mb-1">选择角色特质</h3>
+            <p class="text-xs text-slate-500 mb-5">最多可选择 8 个特质标签</p>
+            <div id="traitContainer"></div>
+          </div>
+        </div>
+
+        <!-- STEP 3 — 背景故事 -->
+        <div class="step-panel">
+          <div class="dash-panel">
+            <div class="form-group">
+              <label class="form-label">背景故事</label>
+              <textarea id="charStory" class="form-input" rows="6" placeholder="书写你角色的星际传说…&#10;可以描述角色的起源、经历、目标或性格特点。"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">角色座右铭</label>
+              <input type="text" id="charMotto" class="form-input" placeholder="例：星辰大海，永不止步" maxlength="50" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Nav buttons -->
+        <div class="flex justify-between mt-8">
+          <button id="prevStep" class="btn-neon font-cyber text-xs tracking-wider px-6 py-2" style="display:none;border-color:rgba(100,116,139,0.3);color:#94a3b8;">上一步</button>
+          <div class="flex-1"></div>
+          <button id="nextStep" class="btn-neon font-cyber text-xs tracking-wider px-6 py-2">下一步</button>
+          <button id="generateCard" class="btn-neon font-cyber text-xs tracking-wider px-8 py-2" style="display:none;">生成角色卡</button>
+        </div>
+      </div>
+
+      <!-- Result area -->
+      <div id="resultArea" style="display:none;"></div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-slate-800/60 py-8 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center">
+          <span class="font-cyber text-[8px] font-black text-white">Hi</span>
+        </div>
+        <span class="font-cyber tracking-wider">Hello &copy; 2026</span>
+      </div>
+      <p class="font-cyber tracking-wider text-slate-600">铸造于宇宙之心</p>
+    </div>
+  </footer>
+
+  <script src="../auth-api.js"></script>
+  <script src="../scripts.js"></script>
+  <script src="character.js"></script>
+</body>
+</html>

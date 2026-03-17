@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI分镜大师 — 用户中心</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="starfield"></div>
+
+  <div class="app-container">
+
+    <!-- Nav -->
+    <nav class="top-nav">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-icon">AI</div>
+        <span class="nav-logo-text">分镜大师</span>
+      </a>
+      <div class="nav-user">
+        <span id="navUserName" class="nav-user-name"></span>
+        <a href="/" class="nav-btn">返回首页</a>
+      </div>
+    </nav>
+
+    <!-- Dashboard -->
+    <div class="page-content" style="align-items:flex-start;padding-top:2rem;">
+      <div id="dashApp" class="dashboard">
+        <!-- JS 动态渲染 -->
+        <div style="text-align:center;padding:4rem 0;color:var(--text-muted);">
+          <div class="spinner" style="width:24px;height:24px;border-width:3px;"></div>
+          <p style="margin-top:1rem;">加载中…</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

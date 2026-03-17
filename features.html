@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello - 核心功能</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="scanlines">
+
+  <canvas id="starfield"></canvas>
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+  <div class="nebula nebula-4"></div>
+  <div class="wormhole">
+    <div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div><div class="wormhole-ring"></div>
+    <div class="wormhole-core"></div>
+  </div>
+  <div class="energy-ripple"><span></span><span></span><span></span><span></span></div>
+  <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+
+  <!-- Nav -->
+  <nav id="navbar" class="nav-glass fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <span class="font-cyber text-sm font-black text-white tracking-tight">Hi</span>
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 shadow-lg shadow-cyan-400/50"></span>
+            </span>
+          </div>
+          <span class="font-cyber text-lg font-bold bg-gradient-to-r from-indigo-300 to-violet-400 bg-clip-text text-transparent tracking-widest">Hello</span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html"     class="nav-link font-cyber text-xs tracking-wider">首页</a>
+          <a href="features.html"  class="nav-link active font-cyber text-xs tracking-wider">功能</a>
+          <a href="tech.html"      class="nav-link font-cyber text-xs tracking-wider">技术</a>
+          <a href="about.html"     class="nav-link font-cyber text-xs tracking-wider">关于</a>
+          <a href="ai-character-card/character.html" class="nav-link font-cyber text-xs tracking-wider">角色</a>
+        </div>
+        <div class="hidden md:flex items-center gap-4">
+          <a href="console.html" class="btn-neon text-xs font-cyber tracking-wider">启动控制台</a>
+          <button class="user-avatar-btn" title="登录 / 注册">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </button>
+        </div>
+        <button id="menuBtn" class="md:hidden relative w-9 h-9 flex flex-col items-center justify-center gap-1.5 group" aria-label="Menu">
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 origin-center group-[.open]:rotate-45 group-[.open]:translate-y-[4px]"></span>
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 group-[.open]:opacity-0"></span>
+          <span class="block w-6 h-0.5 bg-indigo-400 rounded transition-all duration-300 origin-center group-[.open]:-rotate-45 group-[.open]:-translate-y-[4px]"></span>
+        </button>
+      </div>
+      <div id="mobileMenu" class="mobile-menu md:hidden">
+        <div class="py-3 space-y-1 border-t border-indigo-500/10">
+          <a href="index.html"     class="block nav-link font-cyber text-xs tracking-wider">首页</a>
+          <a href="features.html"  class="block nav-link active font-cyber text-xs tracking-wider">功能</a>
+          <a href="tech.html"      class="block nav-link font-cyber text-xs tracking-wider">技术</a>
+          <a href="about.html"     class="block nav-link font-cyber text-xs tracking-wider">关于</a>
+          <a href="ai-character-card/character.html" class="block nav-link font-cyber text-xs tracking-wider">角色</a>
+          <div class="pt-3 flex gap-2">
+            <a href="console.html" class="btn-neon flex-1 text-xs font-cyber tracking-wider text-center">启动控制台</a>
+            <button class="user-avatar-btn" style="width:42px;height:42px;" title="登录 / 注册">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Features Dashboard -->
+  <main class="relative z-10 pt-24 pb-16 px-4">
+    <div class="max-w-7xl mx-auto page-enter">
+
+      <div class="text-center mb-12">
+        <p class="font-cyber text-xs tracking-[0.25em] text-cyan-400/60 mb-3">// 核心模块</p>
+        <h1 class="font-cyber text-3xl sm:text-4xl font-bold section-title mb-4">核心功能模块</h1>
+        <p class="text-slate-400 max-w-lg mx-auto">星舰各子系统模块详细状态与能力概览</p>
+      </div>
+
+      <!-- Module Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+
+        <!-- Module 1: Quantum Engine -->
+        <div class="dash-panel reveal">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-400/20 to-violet-500/20 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-cyber text-sm font-bold text-indigo-300 tracking-wide mb-1">量子跃迁引擎</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">基于量子纠缠的超光速数据传输核心，实现跨星系毫秒级信号响应与超维计算。</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-indigo-400" data-count="9.7">0</p>
+              <p class="text-xs text-slate-500 font-cyber">曲速</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-cyan-400" data-count="99.9">0</p>
+              <p class="text-xs text-slate-500 font-cyber">在线率%</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-emerald-400" data-count="0.003">0</p>
+              <p class="text-xs text-slate-500 font-cyber">延迟</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 2: Dark Matter Encryption -->
+        <div class="dash-panel reveal">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 border border-violet-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-cyber text-sm font-bold text-violet-300 tracking-wide mb-1">暗物质加密</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">利用暗物质特征的多维加密体系，构建不可破解的星际通信防护网络。</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-violet-400" data-count="512">0</p>
+              <p class="text-xs text-slate-500 font-cyber">量子位</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-purple-400" data-count="7">0</p>
+              <p class="text-xs text-slate-500 font-cyber">层数</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-emerald-400">AES-Q</p>
+              <p class="text-xs text-slate-500 font-cyber">协议</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 3: Navigation Matrix -->
+        <div class="dash-panel reveal">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-cyber text-sm font-bold text-cyan-300 tracking-wide mb-1">星际导航矩阵</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">全息星图网络拓扑，实现无边界的跨维度数据连接、路径规划与传输。</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-cyan-400" data-count="2.4">0</p>
+              <p class="text-xs text-slate-500 font-cyber">恒星(百万)</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-blue-400" data-count="47">0</p>
+              <p class="text-xs text-slate-500 font-cyber">航线</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-emerald-400" data-count="99">0</p>
+              <p class="text-xs text-slate-500 font-cyber">精度%</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 4: Wormhole Interface -->
+        <div class="dash-panel reveal">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-400/20 to-teal-500/20 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-cyber text-sm font-bold text-emerald-300 tracking-wide mb-1">虫洞投射界面</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">透过空间折叠技术的自适应UI系统，打造跨维度的沉浸式操作体验。</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-emerald-400" data-count="144">0</p>
+              <p class="text-xs text-slate-500 font-cyber">FPS</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-teal-400" data-count="8">0</p>
+              <p class="text-xs text-slate-500 font-cyber">维度</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-cyan-400">HDR+</p>
+              <p class="text-xs text-slate-500 font-cyber">渲染</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 5: Consciousness Core -->
+        <div class="dash-panel reveal">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-rose-400/20 to-red-500/20 border border-rose-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-cyber text-sm font-bold text-rose-300 tracking-wide mb-1">意识共鸣核心</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">AI驱动的跨物种意识感知系统，实现星际文明间的无障碍共情交互。</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-rose-400" data-count="12">0</p>
+              <p class="text-xs text-slate-500 font-cyber">物种</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-pink-400" data-count="98.2">0</p>
+              <p class="text-xs text-slate-500 font-cyber">同步%</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-emerald-400">ACTIVE</p>
+              <p class="text-xs text-slate-500 font-cyber">状态</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 6: Modular Architecture -->
+        <div class="dash-panel reveal">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-400/20 to-orange-500/20 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-cyber text-sm font-bold text-amber-300 tracking-wide mb-1">模块化星舰架构</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">即插即用的组件生态，灵活构建满足任何星际任务场景的数字方案。</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-amber-400" data-count="36">0</p>
+              <p class="text-xs text-slate-500 font-cyber">模块</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-orange-400" data-count="128">0</p>
+              <p class="text-xs text-slate-500 font-cyber">APIs</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <p class="font-cyber text-lg font-bold text-emerald-400">v3.7</p>
+              <p class="text-xs text-slate-500 font-cyber">版本</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center reveal">
+        <a href="console.html" class="btn-neon font-cyber text-sm tracking-wider px-10 py-3">
+          进入控制台监控全部模块
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-slate-800/60 py-8 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center">
+          <span class="font-cyber text-[8px] font-black text-white">Hi</span>
+        </div>
+        <span class="font-cyber tracking-wider">Hello &copy; 2026</span>
+      </div>
+      <p class="font-cyber tracking-wider text-slate-600">铸造于宇宙之心</p>
+    </div>
+  </footer>
+
+  <script src="auth-api.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
