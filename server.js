@@ -10,6 +10,7 @@ if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 
 const { sequelize, testConnection } = require('./config/database');
 const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin');
 const { apiLimiter } = require('./middleware/rateLimiter');
 
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/', apiLimiter);
 
 /* ---------- 路由 ---------- */
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {
