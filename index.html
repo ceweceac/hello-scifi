@@ -366,5 +366,48 @@
     }));
   })();
   </script>
+  <script>
+  (function(){
+    var canvas=document.createElement('canvas');
+    canvas.id='cursorTrail';
+    canvas.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999';
+    document.body.appendChild(canvas);
+    var ctx=canvas.getContext('2d'),w,h,particles=[];
+    function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight}
+    resize();window.addEventListener('resize',resize);
+    var mx=w/2,my=h/2;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;
+      for(var i=0;i<3;i++){
+        particles.push({
+          x:mx,y:my,
+          vx:(Math.random()-.5)*1.5,vy:(Math.random()-.5)*1.5,
+          r:Math.random()*2.5+0.5,
+          life:1,
+          decay:Math.random()*.025+.015,
+          color:['129,140,248','34,211,238','192,132,252','99,102,241'][Math.floor(Math.random()*4)]
+        });
+      }
+    });
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(var i=particles.length-1;i>=0;i--){
+        var p=particles[i];
+        p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;
+        if(p.life<=0){particles.splice(i,1);continue}
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r*p.life,0,Math.PI*2);
+        ctx.fillStyle='rgba('+p.color+','+p.life*.6+')';
+        ctx.fill();
+        if(p.r>1.5){
+          ctx.beginPath();ctx.arc(p.x,p.y,p.r*p.life*2.5,0,Math.PI*2);
+          ctx.fillStyle='rgba('+p.color+','+p.life*.08+')';ctx.fill();
+        }
+      }
+      if(particles.length>300)particles.splice(0,particles.length-300);
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+  </script>
 </body>
 </html>
