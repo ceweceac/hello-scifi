@@ -9,7 +9,8 @@ body{font-family:'Noto Sans SC',sans-serif;background:#0d0d0d;color:#e2e8f0;heig
 .cv-toolbar{position:fixed;top:50%;left:12px;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:4px;background:rgba(30,30,30,.85);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:6px;backdrop-filter:blur(12px)}
 .cv-tool-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:10px;color:#666;cursor:pointer;transition:all .15s}
 .cv-tool-btn:hover{color:#aaa;background:rgba(255,255,255,.06)}
-.cv-tool-btn.active{color:#818cf8;background:rgba(99,102,241,.12)}
+.cv-tool-btn.active{color:#fff;background:rgba(255,255,255,.12)}
+.cv-tool-btn[data-action="add"].active svg{transform:rotate(45deg);transition:transform .2s}
 
 /* ======== CANVAS ======== */
 .cv-canvas{position:fixed;inset:0;overflow:hidden;cursor:default}
@@ -88,3 +89,13 @@ body{font-family:'Noto Sans SC',sans-serif;background:#0d0d0d;color:#e2e8f0;heig
 .cv-ctx-item{display:block;width:100%;padding:8px 12px;background:none;border:none;color:#999;font-size:12px;text-align:left;cursor:pointer;border-radius:6px;transition:all .15s;font-family:'Noto Sans SC',sans-serif}
 .cv-ctx-item:hover{background:rgba(255,255,255,.06);color:#ddd}
 .cv-ctx-item[data-act="delete"]:hover{background:rgba(244,63,94,.1);color:#fda4af}
+
+/* ======== ADD PANEL (+ menu) ======== */
+.cv-add-panel{position:fixed;top:50%;left:60px;transform:translateY(-50%);z-index:200;width:180px;background:rgba(25,25,25,.96);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px;backdrop-filter:blur(20px);box-shadow:0 12px 40px rgba(0,0,0,.6);display:none}
+.cv-add-panel.show{display:block}
+.cv-add-section-title{font-size:11px;color:#555;padding:6px 8px 4px;letter-spacing:.03em}
+.cv-add-item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;background:none;border:none;border-radius:8px;color:#bbb;font-size:13px;cursor:pointer;transition:all .15s;font-family:'Noto Sans SC',sans-serif;text-align:left}
+.cv-add-item:hover{background:rgba(255,255,255,.06);color:#fff}
+.cv-add-item svg{color:#888;flex-shrink:0}
+.cv-add-item:hover svg{color:#ccc}
+.cv-add-badge{font-size:9px;padding:1px 5px;border-radius:4px;background:rgba(255,255,255,.08);color:#666;font-style:normal;margin-left:4px}

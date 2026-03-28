@@ -5,10 +5,15 @@
   const NODE_DEFS = {
     script:    { label:'故事脚本生成', color:'#818cf8', fields:[{type:'textarea',key:'content',label:'剧本内容',placeholder:'输入剧本…'}], runnable:true },
     character: { label:'角色三视图',   color:'#34d399', fields:[{type:'select',key:'method',label:'生成方案',options:['IP-Adapter','ControlNet','LoRA']}], runnable:true },
-    imagegen:  { label:'智能图生视频', color:'#f43f5e', fields:[{type:'select',key:'engine',label:'引擎',options:['Sora','Runway','Pika']},{type:'select',key:'style',label:'风格',options:['写实','赛博朋克','动画']}], runnable:true },
-    video:     { label:'音频视频',     color:'#c084fc', fields:[{type:'select',key:'format',label:'格式',options:['MP4','MOV','WebM']}], runnable:true },
+    imagegen:  { label:'图片',         color:'#f43f5e', fields:[{type:'select',key:'engine',label:'引擎',options:['DALL-E 3','Stable Diffusion','Midjourney']},{type:'select',key:'style',label:'风格',options:['写实','赛博朋克','动画']}], runnable:true },
+    video:     { label:'视频',         color:'#c084fc', fields:[{type:'select',key:'format',label:'格式',options:['MP4','MOV','WebM']}], runnable:true },
     prompt:    { label:'提示词',       color:'#fbbf24', fields:[{type:'textarea',key:'prompt',label:'Prompt',placeholder:'描述画面…'}] },
     analyze:   { label:'剧本分析',     color:'#22d3ee', fields:[{type:'select',key:'model',label:'模型',options:['GPT-4','Claude','Gemini']}], runnable:true },
+    videogen:  { label:'视频合成',     color:'#fb923c', fields:[{type:'select',key:'engine',label:'引擎',options:['Sora','Runway','Pika']},{type:'textarea',key:'desc',label:'描述',placeholder:'视频描述…'}], runnable:true },
+    audio:     { label:'音频',         color:'#38bdf8', fields:[{type:'select',key:'type',label:'类型',options:['配音','音效','背景音乐']},{type:'textarea',key:'desc',label:'描述',placeholder:'音频描述…'}], runnable:true },
+    storyboard:{ label:'脚本',         color:'#a78bfa', fields:[{type:'textarea',key:'content',label:'脚本内容',placeholder:'输入脚本…'}], runnable:true },
+    upload:    { label:'上传资源',     color:'#94a3b8', fields:[{type:'text',key:'url',label:'文件路径',placeholder:'选择或拖入文件…'}] },
+    library:   { label:'图库资源',     color:'#e879f9', fields:[{type:'text',key:'keyword',label:'搜索关键词',placeholder:'搜索图库…'}] },
   };
 
   /* ===================== 状态 ===================== */
@@ -510,19 +515,49 @@
   }
 
   /* ===================== 工具栏按钮 ===================== */
+  const addPanel = document.getElementById('addPanel');
+
+  function toggleAddPanel() {
+    if (!addPanel) return;
+    addPanel.classList.toggle('show');
+    const btn = toolbar.querySelector('[data-action="add"]');
+    if (btn) btn.classList.toggle('active', addPanel.classList.contains('show'));
+  }
+  function hideAddPanel() {
+    if (!addPanel) return;
+    addPanel.classList.remove('show');
+    const btn = toolbar.querySelector('[data-action="add"]');
+    if (btn) btn.classList.remove('active');
+  }
+
+  // + 按钮点击时弹出/收起添加面板
   if (toolbar) {
     toolbar.addEventListener('click', e => {
       const btn = e.target.closest('[data-action]');
       if (!btn) return;
       if (btn.dataset.action === 'add') {
-        const rect = canvasArea.getBoundingClientRect();
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const pos = screenToCanvas(rect.left + cx, rect.top + cy);
-        createNode('prompt', pos.x - 100, pos.y - 80);
+        toggleAddPanel();
+      } else {
+        hideAddPanel();
       }
     });
   }
+
+  // 面板里的添加按钮
+  if (addPanel) {
+    addPanel.addEventListener('click', e => {
+      const item = e.target.closest('.cv-add-item[data-type]');
+      if (!item) return;
+      const type = item.dataset.type;
+      const rect = canvasArea.getBoundingClientRect();
+      const pos = screenToCanvas(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      createNode(type, pos.x - 100, pos.y - 80);
+      hideAddPanel();
+    });
+  }
+
+  // 点画布时收起面板
+  canvasArea.addEventListener('mousedown', () => hideAddPanel());
 
   /* ===================== 底部卡片拖拽 ===================== */
   if (bottomBar) {
