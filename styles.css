@@ -783,21 +783,39 @@ body {
 /* ======== CYBER CHARACTER ANIMATION ======== */
 #cyber-character {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 1;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 420px;
+  height: 630px;
+  z-index: 2;
   pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  opacity: 0;
+  animation: charFadeIn 2.5s ease-out 0.8s forwards;
 }
 
-#char-svg {
+#char-img {
   width: 100%;
   height: 100%;
-  max-width: 500px;
-  max-height: 100vh;
-  opacity: 0.85;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter:
+    drop-shadow(0 0 20px rgba(96,165,250,0.7))
+    drop-shadow(0 0 55px rgba(59,130,246,0.35))
+    brightness(1.15)
+    contrast(1.1)
+    saturate(1.25);
+  animation: charFloat 7s ease-in-out infinite;
+}
+
+@keyframes charFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes charFloat {
+  0%,100% { transform: translateY(0px); }
+  40%     { transform: translateY(-16px); }
+  70%     { transform: translateY(-10px); }
 }
 
 /* === Phase 1 (0-1s): Hair sway === */
