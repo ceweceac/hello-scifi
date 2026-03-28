@@ -116,6 +116,179 @@
     </div>
   </section>
 
+  <!-- Sci-Fi Animation Showcase -->
+  <section class="relative z-10 py-16 px-4 overflow-hidden">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-10 reveal">
+        <p class="font-cyber text-xs tracking-[0.25em] text-violet-400/60 mb-3">// 深空档案</p>
+        <h2 class="font-cyber text-2xl sm:text-3xl font-bold section-title mb-2">星际全息投影</h2>
+      </div>
+      <div class="scifi-showcase reveal">
+        <div class="scifi-viewport">
+          <!-- 1. 机甲战士 -->
+          <div class="scifi-slide">
+            <svg class="scifi-svg" viewBox="0 0 400 300">
+              <defs>
+                <linearGradient id="mechG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#4f46e5"/></linearGradient>
+                <filter id="glow1"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- 机甲身体 -->
+              <rect x="170" y="80" width="60" height="90" rx="8" fill="url(#mechG)" opacity="0.9"/>
+              <!-- 头部 -->
+              <rect x="180" y="50" width="40" height="35" rx="6" fill="#6366f1"/>
+              <rect x="190" y="58" width="20" height="8" rx="2" fill="#22d3ee" filter="url(#glow1)" class="scifi-blink"/>
+              <!-- 手臂 -->
+              <rect x="140" y="90" width="30" height="12" rx="4" fill="#4f46e5" class="scifi-arm-l"/>
+              <rect x="230" y="90" width="30" height="12" rx="4" fill="#4f46e5" class="scifi-arm-r"/>
+              <!-- 武器 -->
+              <rect x="255" y="82" width="40" height="6" rx="2" fill="#22d3ee" filter="url(#glow1)" class="scifi-arm-r"/>
+              <!-- 腿 -->
+              <rect x="178" y="170" width="18" height="50" rx="4" fill="#4338ca"/>
+              <rect x="204" y="170" width="18" height="50" rx="4" fill="#4338ca"/>
+              <!-- 脚 -->
+              <rect x="172" y="215" width="28" height="10" rx="3" fill="#3730a3"/>
+              <rect x="200" y="215" width="28" height="10" rx="3" fill="#3730a3"/>
+              <!-- 胸部反应堆 -->
+              <circle cx="200" cy="115" r="10" fill="#22d3ee" filter="url(#glow1)" class="scifi-pulse"/>
+              <!-- 肩甲 -->
+              <polygon points="165,80 175,65 175,95" fill="#6366f1"/>
+              <polygon points="235,80 225,65 225,95" fill="#6366f1"/>
+              <!-- 地面光 -->
+              <ellipse cx="200" cy="232" rx="50" ry="6" fill="#818cf8" opacity="0.15" class="scifi-pulse"/>
+              <text x="200" y="275" text-anchor="middle" fill="#64748b" font-size="12" font-family="Orbitron,monospace" letter-spacing="0.1em">MECH-X7 战术机甲</text>
+            </svg>
+          </div>
+          <!-- 2. 宇宙飞船 -->
+          <div class="scifi-slide">
+            <svg class="scifi-svg" viewBox="0 0 400 300">
+              <defs>
+                <linearGradient id="shipG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0891b2"/></linearGradient>
+                <filter id="glow2"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- 船体 -->
+              <ellipse cx="200" cy="140" rx="120" ry="30" fill="#0e7490" opacity="0.8"/>
+              <ellipse cx="200" cy="140" rx="80" ry="20" fill="#155e75"/>
+              <!-- 驾驶舱 -->
+              <ellipse cx="200" cy="128" rx="30" ry="15" fill="url(#shipG)" opacity="0.9"/>
+              <ellipse cx="200" cy="126" rx="18" ry="8" fill="#22d3ee" opacity="0.4" class="scifi-blink"/>
+              <!-- 机翼 -->
+              <polygon points="80,140 40,155 100,150" fill="#0e7490"/>
+              <polygon points="320,140 360,155 300,150" fill="#0e7490"/>
+              <!-- 引擎尾焰 -->
+              <ellipse cx="200" cy="165" rx="25" ry="8" fill="#06b6d4" filter="url(#glow2)" class="scifi-engine"/>
+              <ellipse cx="160" cy="162" rx="12" ry="5" fill="#22d3ee" filter="url(#glow2)" class="scifi-engine"/>
+              <ellipse cx="240" cy="162" rx="12" ry="5" fill="#22d3ee" filter="url(#glow2)" class="scifi-engine"/>
+              <!-- 星空粒子 -->
+              <circle cx="50" cy="60" r="1.5" fill="#fff" opacity="0.6" class="scifi-star-move"/>
+              <circle cx="130" cy="40" r="1" fill="#fff" opacity="0.4" class="scifi-star-move" style="animation-delay:-0.5s"/>
+              <circle cx="300" cy="70" r="1.2" fill="#fff" opacity="0.5" class="scifi-star-move" style="animation-delay:-1s"/>
+              <circle cx="350" cy="50" r="0.8" fill="#fff" opacity="0.3" class="scifi-star-move" style="animation-delay:-1.5s"/>
+              <text x="200" y="220" text-anchor="middle" fill="#64748b" font-size="12" font-family="Orbitron,monospace" letter-spacing="0.1em">NOVA-9 星际巡洋舰</text>
+            </svg>
+          </div>
+          <!-- 3. 外星生物 -->
+          <div class="scifi-slide">
+            <svg class="scifi-svg" viewBox="0 0 400 300">
+              <defs>
+                <linearGradient id="alienG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
+                <filter id="glow3"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- 头部 -->
+              <ellipse cx="200" cy="90" rx="45" ry="55" fill="url(#alienG)" opacity="0.85"/>
+              <!-- 眼睛 -->
+              <ellipse cx="182" cy="85" rx="14" ry="18" fill="#020617"/>
+              <ellipse cx="218" cy="85" rx="14" ry="18" fill="#020617"/>
+              <ellipse cx="182" cy="82" rx="6" ry="8" fill="#22d3ee" filter="url(#glow3)" class="scifi-blink"/>
+              <ellipse cx="218" cy="82" rx="6" ry="8" fill="#22d3ee" filter="url(#glow3)" class="scifi-blink"/>
+              <!-- 身体 -->
+              <ellipse cx="200" cy="175" rx="30" ry="45" fill="#6d28d9" opacity="0.7"/>
+              <!-- 触手 -->
+              <path d="M170,160 Q140,200 120,210" stroke="#7c3aed" stroke-width="6" fill="none" stroke-linecap="round" class="scifi-tentacle-l"/>
+              <path d="M230,160 Q260,200 280,210" stroke="#7c3aed" stroke-width="6" fill="none" stroke-linecap="round" class="scifi-tentacle-r"/>
+              <path d="M175,180 Q150,220 135,240" stroke="#6d28d9" stroke-width="5" fill="none" stroke-linecap="round" class="scifi-tentacle-l" style="animation-delay:-0.3s"/>
+              <path d="M225,180 Q250,220 265,240" stroke="#6d28d9" stroke-width="5" fill="none" stroke-linecap="round" class="scifi-tentacle-r" style="animation-delay:-0.3s"/>
+              <!-- 光环 -->
+              <ellipse cx="200" cy="55" rx="20" ry="5" fill="none" stroke="#c4b5fd" stroke-width="1" opacity="0.5" class="scifi-pulse"/>
+              <!-- 浮游粒子 -->
+              <circle cx="150" cy="100" r="3" fill="#c4b5fd" opacity="0.4" class="scifi-float"/>
+              <circle cx="250" cy="120" r="2" fill="#a78bfa" opacity="0.3" class="scifi-float" style="animation-delay:-1s"/>
+              <circle cx="170" cy="200" r="2.5" fill="#8b5cf6" opacity="0.35" class="scifi-float" style="animation-delay:-2s"/>
+              <text x="200" y="270" text-anchor="middle" fill="#64748b" font-size="12" font-family="Orbitron,monospace" letter-spacing="0.1em">ZETH 星云生物体</text>
+            </svg>
+          </div>
+          <!-- 4. 太空站 -->
+          <div class="scifi-slide">
+            <svg class="scifi-svg" viewBox="0 0 400 300">
+              <defs>
+                <linearGradient id="stationG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#64748b"/><stop offset="100%" stop-color="#475569"/></linearGradient>
+                <filter id="glow4"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- 中央核心 -->
+              <circle cx="200" cy="140" r="30" fill="url(#stationG)" stroke="#94a3b8" stroke-width="1"/>
+              <circle cx="200" cy="140" r="15" fill="#1e293b"/>
+              <circle cx="200" cy="140" r="6" fill="#22d3ee" filter="url(#glow4)" class="scifi-pulse"/>
+              <!-- 旋转环 -->
+              <ellipse cx="200" cy="140" rx="80" ry="12" fill="none" stroke="#64748b" stroke-width="3" class="scifi-rotate"/>
+              <ellipse cx="200" cy="140" rx="80" ry="12" fill="none" stroke="#818cf8" stroke-width="1" opacity="0.3" stroke-dasharray="4 4" class="scifi-rotate-rev"/>
+              <!-- 太阳能板 -->
+              <rect x="90" y="105" width="40" height="70" rx="2" fill="none" stroke="#475569" stroke-width="1.5"/>
+              <rect x="93" y="108" width="34" height="30" rx="1" fill="#1e40af" opacity="0.3"/>
+              <rect x="93" y="142" width="34" height="30" rx="1" fill="#1e40af" opacity="0.3"/>
+              <rect x="270" y="105" width="40" height="70" rx="2" fill="none" stroke="#475569" stroke-width="1.5"/>
+              <rect x="273" y="108" width="34" height="30" rx="1" fill="#1e40af" opacity="0.3"/>
+              <rect x="273" y="142" width="34" height="30" rx="1" fill="#1e40af" opacity="0.3"/>
+              <!-- 连接桁架 -->
+              <line x1="130" y1="140" x2="170" y2="140" stroke="#64748b" stroke-width="2"/>
+              <line x1="230" y1="140" x2="270" y2="140" stroke="#64748b" stroke-width="2"/>
+              <!-- 停靠小飞船 -->
+              <ellipse cx="170" cy="115" rx="8" ry="4" fill="#334155"/>
+              <ellipse cx="230" cy="165" rx="8" ry="4" fill="#334155"/>
+              <!-- 信号波 -->
+              <circle cx="200" cy="140" r="50" fill="none" stroke="#818cf8" stroke-width="0.5" opacity="0.2" class="scifi-signal"/>
+              <circle cx="200" cy="140" r="70" fill="none" stroke="#818cf8" stroke-width="0.5" opacity="0.1" class="scifi-signal" style="animation-delay:-1s"/>
+              <text x="200" y="250" text-anchor="middle" fill="#64748b" font-size="12" font-family="Orbitron,monospace" letter-spacing="0.1em">HELIOS 轨道空间站</text>
+            </svg>
+          </div>
+          <!-- 5. 量子门 -->
+          <div class="scifi-slide">
+            <svg class="scifi-svg" viewBox="0 0 400 300">
+              <defs>
+                <linearGradient id="gateG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f472b6"/><stop offset="50%" stop-color="#c084fc"/><stop offset="100%" stop-color="#818cf8"/></linearGradient>
+                <filter id="glow5"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- 门框 -->
+              <ellipse cx="200" cy="140" rx="70" ry="90" fill="none" stroke="url(#gateG)" stroke-width="6"/>
+              <ellipse cx="200" cy="140" rx="60" ry="78" fill="none" stroke="#c084fc" stroke-width="1" opacity="0.4" stroke-dasharray="3 5" class="scifi-rotate"/>
+              <!-- 漩涡核心 -->
+              <ellipse cx="200" cy="140" rx="45" ry="58" fill="#0f0520" opacity="0.8"/>
+              <ellipse cx="200" cy="140" rx="30" ry="38" fill="#c084fc" opacity="0.06" filter="url(#glow5)" class="scifi-pulse"/>
+              <ellipse cx="200" cy="140" rx="15" ry="20" fill="#e879f9" opacity="0.08" filter="url(#glow5)" class="scifi-pulse" style="animation-delay:-0.5s"/>
+              <!-- 能量环 -->
+              <ellipse cx="200" cy="140" rx="80" ry="10" fill="none" stroke="#f472b6" stroke-width="1.5" opacity="0.4" class="scifi-rotate"/>
+              <ellipse cx="200" cy="140" rx="10" ry="95" fill="none" stroke="#a78bfa" stroke-width="1" opacity="0.3" class="scifi-rotate-rev"/>
+              <!-- 能量粒子 -->
+              <circle cx="140" cy="100" r="2" fill="#f472b6" filter="url(#glow5)" class="scifi-orbit"/>
+              <circle cx="260" cy="180" r="2" fill="#c084fc" filter="url(#glow5)" class="scifi-orbit" style="animation-delay:-1.5s"/>
+              <circle cx="200" cy="50" r="1.5" fill="#e879f9" filter="url(#glow5)" class="scifi-orbit" style="animation-delay:-1s"/>
+              <!-- 底座 -->
+              <rect x="160" y="228" width="80" height="6" rx="3" fill="#475569"/>
+              <rect x="175" y="224" width="50" height="6" rx="2" fill="#64748b"/>
+              <text x="200" y="268" text-anchor="middle" fill="#64748b" font-size="12" font-family="Orbitron,monospace" letter-spacing="0.1em">QUANTUM GATE 量子门</text>
+            </svg>
+          </div>
+        </div>
+        <!-- 指示器 -->
+        <div class="scifi-indicators" id="scifiIndicators">
+          <button class="scifi-dot active" data-idx="0"></button>
+          <button class="scifi-dot" data-idx="1"></button>
+          <button class="scifi-dot" data-idx="2"></button>
+          <button class="scifi-dot" data-idx="3"></button>
+          <button class="scifi-dot" data-idx="4"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Quick Access Cards -->
   <section class="relative z-10 py-24 px-4">
     <div class="max-w-6xl mx-auto">
@@ -171,5 +344,27 @@
 
   <script src="auth-api.js"></script>
   <script src="scripts.js"></script>
+  <script>
+  (function(){
+    const slides=document.querySelectorAll('.scifi-slide');
+    const dots=document.querySelectorAll('.scifi-dot');
+    if(!slides.length)return;
+    let cur=0;
+    slides[0].classList.add('active');
+    function go(i){
+      slides[cur].classList.remove('active');
+      dots[cur].classList.remove('active');
+      cur=i%slides.length;
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+    }
+    let timer=setInterval(()=>go(cur+1),3000);
+    dots.forEach(d=>d.addEventListener('click',()=>{
+      clearInterval(timer);
+      go(+d.dataset.idx);
+      timer=setInterval(()=>go(cur+1),3000);
+    }));
+  })();
+  </script>
 </body>
 </html>

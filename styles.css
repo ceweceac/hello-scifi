@@ -742,3 +742,40 @@ body {
   background: rgba(99,102,241,0.1);
   color: #e2e8f0;
 }
+
+/* ======== SCI-FI SHOWCASE ======== */
+.scifi-showcase{position:relative;max-width:500px;margin:0 auto}
+.scifi-viewport{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:1.25rem;background:rgba(2,6,23,0.5);border:1px solid rgba(99,102,241,0.12);box-shadow:0 0 40px rgba(99,102,241,0.05)}
+.scifi-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.8s ease;pointer-events:none}
+.scifi-slide.active{opacity:1;pointer-events:auto}
+.scifi-svg{width:85%;height:85%}
+.scifi-indicators{display:flex;justify-content:center;gap:8px;margin-top:16px}
+.scifi-dot{width:8px;height:8px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.15);cursor:pointer;transition:all .3s;padding:0}
+.scifi-dot.active{background:#818cf8;box-shadow:0 0 8px rgba(99,102,241,0.4);transform:scale(1.3)}
+
+/* Sci-Fi Animations */
+@keyframes scifi-blink{0%,100%{opacity:1}50%{opacity:0.3}}
+@keyframes scifi-pulse{0%,100%{opacity:0.6;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes scifi-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes scifi-rotate{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes scifi-rotate-rev{0%{transform:rotate(360deg)}100%{transform:rotate(0deg)}}
+@keyframes scifi-signal{0%{transform:scale(1);opacity:0.3}100%{transform:scale(1.8);opacity:0}}
+@keyframes scifi-arm-swing{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-8deg)}}
+@keyframes scifi-tentacle{0%,100%{transform:rotate(0deg)}50%{transform:rotate(5deg)}}
+@keyframes scifi-engine{0%,100%{opacity:0.7;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.3)}}
+@keyframes scifi-orbit{0%{transform:rotate(0deg) translateX(60px) rotate(0deg)}100%{transform:rotate(360deg) translateX(60px) rotate(-360deg)}}
+@keyframes scifi-star-fly{0%{transform:translateX(0)}100%{transform:translateX(-80px)}}
+
+.scifi-blink{animation:scifi-blink 2s ease-in-out infinite}
+.scifi-pulse{animation:scifi-pulse 2s ease-in-out infinite;transform-origin:center}
+.scifi-float{animation:scifi-float 3s ease-in-out infinite}
+.scifi-rotate{animation:scifi-rotate 12s linear infinite;transform-origin:center}
+.scifi-rotate-rev{animation:scifi-rotate-rev 15s linear infinite;transform-origin:center}
+.scifi-signal{animation:scifi-signal 3s ease-out infinite;transform-origin:center}
+.scifi-arm-l{animation:scifi-arm-swing 2s ease-in-out infinite;transform-origin:right center}
+.scifi-arm-r{animation:scifi-arm-swing 2s ease-in-out infinite reverse;transform-origin:left center}
+.scifi-tentacle-l{animation:scifi-tentacle 2.5s ease-in-out infinite;transform-origin:top center}
+.scifi-tentacle-r{animation:scifi-tentacle 2.5s ease-in-out infinite reverse;transform-origin:top center}
+.scifi-engine{animation:scifi-engine 1s ease-in-out infinite;transform-origin:center}
+.scifi-orbit{animation:scifi-orbit 4s linear infinite;transform-origin:200px 140px}
+.scifi-star-move{animation:scifi-star-fly 2s linear infinite}
