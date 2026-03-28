@@ -608,6 +608,59 @@
     }
   });
 
+  /* ===================== 宇宙星空粒子 ===================== */
+  (function initStars() {
+    const c = document.getElementById('starsCanvas');
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    let w, h, stars = [];
+
+    function resize() {
+      w = c.width = window.innerWidth;
+      h = c.height = window.innerHeight;
+      if (stars.length === 0) genStars();
+    }
+
+    function genStars() {
+      stars = [];
+      const count = Math.floor(w * h / 2000);
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.2 + 0.2,
+          a: Math.random() * 0.6 + 0.15,
+          speed: Math.random() * 0.012 + 0.003,
+          phase: Math.random() * Math.PI * 2,
+          color: ['200,210,255', '160,170,255', '130,220,240', '200,160,255'][Math.floor(Math.random() * 4)]
+        });
+      }
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      for (const s of stars) {
+        const flicker = Math.sin(t * s.speed + s.phase) * 0.3 + 0.7;
+        const alpha = s.a * flicker;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + s.color + ',' + alpha + ')';
+        ctx.fill();
+        if (s.r > 1) {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(' + s.color + ',' + alpha * 0.08 + ')';
+          ctx.fill();
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    window.addEventListener('resize', () => { resize(); genStars(); });
+    requestAnimationFrame(draw);
+  })();
+
   /* ===================== 初始化 ===================== */
   applyTransform();
   if (canvasHint) canvasHint.style.display = 'flex';

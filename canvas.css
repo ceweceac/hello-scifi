@@ -13,8 +13,9 @@ body{font-family:'Noto Sans SC',sans-serif;background:#0d0d0d;color:#e2e8f0;heig
 .cv-tool-btn[data-action="add"].active svg{transform:rotate(45deg);transition:transform .2s}
 
 /* ======== CANVAS ======== */
-.cv-canvas{position:fixed;inset:0;overflow:hidden;cursor:default}
-.cv-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
+.cv-canvas{position:fixed;inset:0;overflow:hidden;cursor:default;background:#0a0a0f}
+.cv-stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.cv-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:1}
 .cv-connections{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
 .cv-workspace{position:absolute;inset:0;z-index:2;pointer-events:none}
 .cv-hint{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:6px;color:#555;font-size:13px;pointer-events:none;z-index:3;letter-spacing:.03em}
