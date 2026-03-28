@@ -3,7 +3,51 @@
   const canvas = document.getElementById('starfield');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let w, h, stars = [], shootingStars = [];
+  let w, h, stars = [], shootingStars = [], blocks = [];
+
+  const BLOCK_COUNT = 80;
+  function createBlock() {
+    const size = Math.random() * 10 + 4;
+    return {
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      size,
+      vx: (Math.random() - 0.5) * 1.2,
+      vy: (Math.random() - 0.5) * 1.2,
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.04,
+      alpha: Math.random() * 0.35 + 0.1,
+      color: (() => {
+        const r = Math.random();
+        if (r < 0.4) return '100,180,255';
+        if (r < 0.7) return '160,100,255';
+        if (r < 0.9) return '80,220,200';
+        return '200,150,255';
+      })()
+    };
+  }
+  for (let i = 0; i < BLOCK_COUNT; i++) blocks.push(createBlock());
+
+  function drawBlocks() {
+    for (const b of blocks) {
+      b.x += b.vx;
+      b.y += b.vy;
+      b.rotation += b.rotSpeed;
+      if (b.x < -20) b.x = w + 20;
+      if (b.x > w + 20) b.x = -20;
+      if (b.y < -20) b.y = h + 20;
+      if (b.y > h + 20) b.y = -20;
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.rotate(b.rotation);
+      ctx.fillStyle = `rgba(${b.color},${b.alpha})`;
+      ctx.fillRect(-b.size / 2, -b.size / 2, b.size, b.size);
+      ctx.strokeStyle = `rgba(${b.color},${b.alpha * 1.5})`;
+      ctx.lineWidth = 0.5;
+      ctx.strokeRect(-b.size / 2, -b.size / 2, b.size, b.size);
+      ctx.restore();
+    }
+  }
 
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -93,6 +137,7 @@
     ctx.translate(mouseX * -5, mouseY * -5);
     drawStars(time / 1000);
     ctx.restore();
+    drawBlocks();
     requestAnimationFrame(animate);
   }
   requestAnimationFrame(animate);
