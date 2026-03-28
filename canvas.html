@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Hello - 星图画布</title>
+  <link rel="stylesheet" href="canvas.css"/>
+</head>
+<body>
+  <!-- 左侧工具栏 -->
+  <aside class="cv-toolbar" id="toolbar">
+    <button class="cv-tool-btn" data-action="add" title="添加节点"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+    <button class="cv-tool-btn" data-action="connect" title="连线模式"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="5" r="3"/><circle cx="19" cy="19" r="3"/><line x1="7.5" y1="7.5" x2="16.5" y2="16.5"/></svg></button>
+    <button class="cv-tool-btn" data-action="character" title="角色管理"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+    <button class="cv-tool-btn" data-action="history" title="历史记录"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></button>
+    <button class="cv-tool-btn" data-action="style" title="风格设置"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+    <button class="cv-tool-btn" data-action="ai" title="AI 助手"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+    <button class="cv-tool-btn" data-action="settings" title="设置"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button>
+  </aside>
+
+  <!-- 画布主区域 -->
+  <main class="cv-canvas" id="canvasArea">
+    <div class="cv-grid" id="grid"></div>
+    <svg class="cv-connections" id="connSvg"></svg>
+    <div class="cv-workspace" id="workspace"></div>
+    <!-- 中心提示 -->
+    <div class="cv-hint" id="canvasHint">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-7 1-3 7z"/></svg>
+      双击画布 自由生成节点
+    </div>
+  </main>
+
+  <!-- 底部节点卡片栏 -->
+  <footer class="cv-bottom-bar" id="bottomBar">
+    <div class="cv-card" data-type="script">
+      <div class="cv-card-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <span class="cv-card-label" style="background:rgba(99,102,241,0.7)">故事脚本生成</span>
+    </div>
+    <div class="cv-card" data-type="character">
+      <div class="cv-card-thumb" style="background:linear-gradient(135deg,#1a2e1a,#162e3e)">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <span class="cv-card-label" style="background:rgba(52,211,153,0.7)">角色三视图</span>
+    </div>
+    <div class="cv-card" data-type="imagegen">
+      <div class="cv-card-thumb" style="background:linear-gradient(135deg,#2e1a1a,#3e1621)">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      </div>
+      <span class="cv-card-label" style="background:rgba(244,63,94,0.7)">智能图生视频</span>
+    </div>
+    <div class="cv-card" data-type="video">
+      <div class="cv-card-thumb" style="background:linear-gradient(135deg,#1a1a2e,#2e1a2e)">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </div>
+      <span class="cv-card-label" style="background:rgba(192,132,252,0.7)">音频视频</span>
+    </div>
+  </footer>
+
+  <!-- 左下角控制区 -->
+  <div class="cv-controls">
+    <a href="index.html" class="cv-avatar" title="返回首页">
+      <div class="cv-avatar-icon">Hi</div>
+    </a>
+    <button class="cv-ctrl-btn" id="settingsBtn" title="设置">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    </button>
+    <div class="cv-zoom-bar">
+      <button class="cv-zoom-btn" id="zoomOut">－</button>
+      <span class="cv-zoom-val" id="zoomVal">100%</span>
+      <button class="cv-zoom-btn" id="zoomIn">＋</button>
+    </div>
+  </div>
+
+  <!-- 右键菜单 -->
+  <div class="cv-ctx" id="ctxMenu">
+    <button class="cv-ctx-item" data-act="duplicate">复制节点</button>
+    <button class="cv-ctx-item" data-act="delete">删除节点</button>
+  </div>
+
+  <script src="canvas.js"></script>
+</body>
+</html>
